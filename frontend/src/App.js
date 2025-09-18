@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import StudentDashboard from "./pages/StudentDashboard";
 import InstructorDashboard from "./pages/InstructorDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CourseLessons from "./pages/CourseLessons";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/course/:courseId/lessons" element={<CourseLessons />} />
+
 
         {/* Protected routes */}
         <Route
