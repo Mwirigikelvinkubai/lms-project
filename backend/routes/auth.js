@@ -9,12 +9,29 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
+
+    // Validate required fields
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Check for existing user
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already registered" });
+    }
+
+    // Hash password
     const hashed = await bcrypt.hash(password, 10);
+
+    // Save user
     const user = new User({ name, email, password: hashed, role });
     await user.save();
-    res.json({ message: "User registered" });
+
+    res.json({ message: "User registered successfully" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("❌ Register error:", err);
+    res.status(500).json({ error: "Server error, check backend logs" });
   }
 });
 
@@ -22,6 +39,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ error: "User not found" });
 
