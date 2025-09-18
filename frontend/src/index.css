@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-body bg-gray-50 text-mohi-navy;
+}
+
+/* Reusable button styles */
+.btn {
+  @apply px-6 py-2 rounded-lg font-semibold shadow-md transition duration-200;
+}
+
+.btn-blue {
+  @apply bg-mohi-blue text-white hover:bg-mohi-green;
+}
+
+.btn-orange {
+  @apply bg-mohi-orange text-white hover:bg-mohi-blue;
+}
